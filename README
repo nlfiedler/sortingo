@@ -1,0 +1,8 @@
+This is the source distribution of a sorting library for Go, named
+sortingo, which contains various sorting algorithm implementations.
+
+To build, use the makengo tool (https://github.com/remogatto/makengo)
+and invoke 'makengo -T' to see the list of build tasks.
+
+Unless otherwise noted, the Sortingo source files are distributed under
+the BSD-style license found in the LICENSE file.

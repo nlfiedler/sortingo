@@ -1,0 +1,78 @@
+// -*- go -*-
+//
+// Copyright 2011 Nathan Fiedler. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+//
+// Build sortingo using makengo (https://github.com/remogatto/makengo)
+// For the list of tasks, invoke 'makengo -T'
+//
+// $Id: $
+
+package main
+
+import (
+	. "makengo"
+	"os"
+	"fmt"
+	"path"
+)
+
+const (
+	bin = "bin"
+	obj = "_obj"
+	src = "src"
+)
+
+var arch = map[string]string { "amd64": "6", "386": "8", "arm": "5" }[os.Getenv("GOARCH")]
+var basePath, _ = os.Getwd()
+var gc = arch + "g"
+var gl = arch + "l"
+
+func init() {
+
+	Desc("Compile sorter library")
+	Task("compile", func() {
+		os.Mkdir(obj, 0755)
+		objfile := path.Join(obj, "sortingo." + arch)
+		srcfile := path.Join(src, "insertion.go")
+		System(fmt.Sprintf("%s -o %s %s", gc, objfile, srcfile))
+	})
+
+	Desc("Package sorter library")
+	Task("package", func() {
+		libfile := path.Join(obj, "sortingo.a")
+		objfile := path.Join(obj, "sortingo." + arch)
+		os.Remove(libfile)
+		System(fmt.Sprintf("gopack grc %s %s", libfile, objfile))
+	}).DependsOn("compile")
+
+	Desc("Cleanup build artifacts")
+	Task("clean", func() {
+		os.Chdir(src)
+		System(fmt.Sprintf("gomake clean"))
+		os.Chdir(basePath)
+		os.RemoveAll(bin)
+		os.RemoveAll(obj)
+	})
+
+	Desc("Build sorter library and executables")
+	Task("build", func() {
+		os.Mkdir(bin, 0755)
+		objfile := path.Join(obj, "main." + arch)
+		srcfile := path.Join(src, "main.go")
+		sortfile := path.Join(bin, "sort")
+		System(fmt.Sprintf("%s -I %s -o %s %s", gc, obj, objfile, srcfile))
+		System(fmt.Sprintf("%s -L %s -o %s %s", gl, obj, sortfile, objfile))
+	}).DependsOn("package")
+
+	Desc("Use gomake to run unit tests")
+	Task("test", func() {
+		os.Chdir("src")
+		System(fmt.Sprintf("gomake test"))
+	})
+
+// TODO: add an install task
+
+        Default("package")
+}
