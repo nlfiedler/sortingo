@@ -14,6 +14,7 @@ SRC=.
 
 TARG=sortingo
 GOFILES=\
-	$(SRC)/insertion.go\
+	$(SRC)/combsort.go\
+	$(SRC)/insertionsort.go\
 
 include $(GOROOT)/src/Make.pkg

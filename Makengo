@@ -28,6 +28,7 @@ var arch = map[string]string { "amd64": "6", "386": "8", "arm": "5" }[os.Getenv(
 var basePath, _ = os.Getwd()
 var gc = arch + "g"
 var gl = arch + "l"
+var srcfiles = []string{"insertionsort.go", "combsort.go"}
 
 func init() {
 
@@ -35,7 +36,13 @@ func init() {
 	Task("compile", func() {
 		os.Mkdir(obj, 0755)
 		objfile := path.Join(obj, "sortingo." + arch)
-		srcfile := path.Join(src, "insertion.go")
+		var srcfile string
+		for i, a := range srcfiles {
+			srcfile += path.Join(src, a)
+			if i > 0 {
+				srcfile += " "
+			}
+		}
 		System(fmt.Sprintf("%s -o %s %s", gc, objfile, srcfile))
 	})
 

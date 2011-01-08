@@ -22,7 +22,7 @@ func CombSort(input []string) {
         for gap > 1 || swapped {
 		// Update the gap value for the next comb.
 		if gap > 1 {
-			gap = int(gap / 1.3)
+			gap = int(float(gap) / 1.3)
 			if gap == 10 || gap == 9 {
 				gap = 11
 			}
