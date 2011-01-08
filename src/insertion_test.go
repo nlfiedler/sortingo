@@ -7,15 +7,15 @@
 package sortingo
 
 import (
-	"sort"
 	"testing"
 )
 
 func TestInsertionSort(t *testing.T) {
-	input := []string{"elephant", "zebra", "giraffe", "monkey", "gazelle"}
-	InsertionSort(input)
-	if !sort.StringsAreSorted(input) {
-		t.Log("small input not sorted")
-		t.Fail()
-	}
+	testSortArguments(t, InsertionSort)
+	testSortAnimals(t, InsertionSort)
+	testSortRepeated(t, InsertionSort, smallDataSize)
+	testSortRepeatedCycle(t, InsertionSort, smallDataSize)
+	testSortRandom(t, InsertionSort, smallDataSize)
+	testSortDictWords(t, InsertionSort, smallDataSize)
+	testSortReversed(t, InsertionSort, smallDataSize)
 }
