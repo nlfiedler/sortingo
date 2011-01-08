@@ -6,7 +6,8 @@
 
 package sortingo
 
-// InsertionSort will sort the given slice of strings.
+// InsertionSort will sort the given slice of strings using the
+// basic insertion sort algorithm, with O(n^2) running time.
 func InsertionSort(a []string) {
 	InsertionSortRange(a, 0, len(a) - 1)
 }

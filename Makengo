@@ -69,7 +69,7 @@ func init() {
 	Desc("Use gomake to run unit tests")
 	Task("test", func() {
 		os.Chdir("src")
-		System(fmt.Sprintf("gomake test"))
+		System(fmt.Sprintf("gotest -v"))
 	})
 
 // TODO: add an install task

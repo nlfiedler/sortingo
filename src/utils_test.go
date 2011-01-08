@@ -131,8 +131,8 @@ func testSortSorted(t *testing.T, f func ([]string), size int) {
 		t.Log(err.String())
 		t.Fail()
 	}
-        sort.SortStrings(input)
-        f(input)
+	sort.SortStrings(input)
+	f(input)
 	if !sort.StringsAreSorted(input) {
 		t.Log("dictwords input not sorted")
 		t.Fail()
@@ -142,9 +142,9 @@ func testSortSorted(t *testing.T, f func ([]string), size int) {
 // ReverseStringArray is identical to sort.StringArray except that the
 // contents are sorted in reverse order.
 type ReverseStringArray []string
-func (p ReverseStringArray) Len() int           { return len(p) }
+func (p ReverseStringArray) Len() int		{ return len(p) }
 func (p ReverseStringArray) Less(i, j int) bool { return p[i] > p[j] }
-func (p ReverseStringArray) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
+func (p ReverseStringArray) Swap(i, j int)	{ p[i], p[j] = p[j], p[i] }
 
 // testSortReversed runs the given sort function on an input set that
 // is in reverse sorted order.
@@ -155,10 +155,40 @@ func testSortReversed(t *testing.T, f func ([]string), size int) {
 		t.Fail()
 	}
 	ri := ReverseStringArray(input)
-        sort.Sort(ri)
-        f(input)
+	sort.Sort(ri)
+	f(input)
 	if !sort.StringsAreSorted(input) {
 		t.Log("dictwords input not sorted")
+		t.Fail()
+	}
+}
+
+// testSortHamletWords runs the given sort function on the set of all
+// words appearing in Shakespeare's <<Hamlet>>.
+func testSortHamletWords(t *testing.T, f func ([]string), size int) {
+	input, err := loadFileData("data/hamletwords", false, size)
+	if err != nil {
+		t.Log(err.String())
+		t.Fail()
+	}
+	shuffle(input)
+	f(input);
+	if !sort.StringsAreSorted(input) {
+		t.Log("hamlet words input not sorted")
+		t.Fail()
+	}
+}
+
+// testSortDictCalls runs the given sort function on a set of library calls.
+func testSortDictCalls(t *testing.T, f func ([]string), size int) {
+	input, err := loadFileData("data/dictcalls.gz", true, size)
+	if err != nil {
+		t.Log(err.String())
+		t.Fail()
+	}
+	f(input);
+	if !sort.StringsAreSorted(input) {
+		t.Log("dictionary calls input not sorted")
 		t.Fail()
 	}
 }

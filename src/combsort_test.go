@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func TestInsertionSort(t *testing.T) {
+func TestCombSort(t *testing.T) {
 	testSortArguments(t, InsertionSort)
 	testSortAnimals(t, InsertionSort)
 	testSortRepeated(t, InsertionSort, smallDataSize)
