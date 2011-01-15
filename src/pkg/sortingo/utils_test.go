@@ -9,12 +9,8 @@ package sortingo
 // This file contains utility functions for the unit tests.
 
 import (
-	"bufio"
 	"bytes"
-	"compress/gzip"
 	"fmt"
-	"io"
-	"os"
 	"rand"
 	"sort"
 	"strings"
@@ -110,12 +106,7 @@ func testSortRandom(t *testing.T, f func ([]string), size int) {
 // testSortDictWords loads the dictionary words file, shuffles it,
 // and runs the given sort function on the result.
 func testSortDictWords(t *testing.T, f func ([]string), size int) {
-	input, err := loadFileData("data/dictwords", false, size)
-	if err != nil {
-		t.Log(err.String())
-		t.Fail()
-	}
-	shuffle(input)
+	input := generateUnique(size)
 	f(input)
 	if !sort.StringsAreSorted(input) {
 		t.Log("dictwords input not sorted")
@@ -126,15 +117,11 @@ func testSortDictWords(t *testing.T, f func ([]string), size int) {
 // testSortSorted runs the given sort function on an input set that
 // is already in sorted order.
 func testSortSorted(t *testing.T, f func ([]string), size int) {
-	input, err := loadFileData("data/dictwords", false, size)
-	if err != nil {
-		t.Log(err.String())
-		t.Fail()
-	}
+	input := generateUnique(size)
 	sort.SortStrings(input)
 	f(input)
 	if !sort.StringsAreSorted(input) {
-		t.Log("dictwords input not sorted")
+		t.Log("sorted dictwords input not sorted")
 		t.Fail()
 	}
 }
@@ -149,11 +136,7 @@ func (p ReverseStringArray) Swap(i, j int)	{ p[i], p[j] = p[j], p[i] }
 // testSortReversed runs the given sort function on an input set that
 // is in reverse sorted order.
 func testSortReversed(t *testing.T, f func ([]string), size int) {
-	input, err := loadFileData("data/dictwords", false, size)
-	if err != nil {
-		t.Log(err.String())
-		t.Fail()
-	}
+	input := generateUnique(size)
 	ri := ReverseStringArray(input)
 	sort.Sort(ri)
 	f(input)
@@ -165,30 +148,11 @@ func testSortReversed(t *testing.T, f func ([]string), size int) {
 
 // testSortHamletWords runs the given sort function on the set of all
 // words appearing in Shakespeare's <<Hamlet>>.
-func testSortHamletWords(t *testing.T, f func ([]string), size int) {
-	input, err := loadFileData("data/hamletwords", false, size)
-	if err != nil {
-		t.Log(err.String())
-		t.Fail()
-	}
-	shuffle(input)
+func testSortNonUnique(t *testing.T, f func ([]string), size int) {
+	input := generateNonUnique(size)
 	f(input);
 	if !sort.StringsAreSorted(input) {
-		t.Log("hamlet words input not sorted")
-		t.Fail()
-	}
-}
-
-// testSortDictCalls runs the given sort function on a set of library calls.
-func testSortDictCalls(t *testing.T, f func ([]string), size int) {
-	input, err := loadFileData("data/dictcalls.gz", true, size)
-	if err != nil {
-		t.Log(err.String())
-		t.Fail()
-	}
-	f(input);
-	if !sort.StringsAreSorted(input) {
-		t.Log("dictionary calls input not sorted")
+		t.Log("non-unique words input not sorted")
 		t.Fail()
 	}
 }
@@ -208,43 +172,6 @@ func iMin(x, y int) int {
 		return x
 	}
 	return y
-}
-
-// loadFileData loads the named file, splitting on the newline character
-// and returning the result as a slice of strings. The count is the number
-// of lines to read from the file.
-func loadFileData(file string, compressed bool, count int) (list []string, err os.Error) {
-	var f io.ReadCloser
-	f, err = os.Open(file, os.O_RDONLY, 0400)
-	if err != nil {
-		return
-	}
-	defer f.Close()
-	if (compressed) {
-		f, err = gzip.NewReader(f)
-		if err != nil {
-			return
-		}
-		defer f.Close()
-	}
-	br := bufio.NewReader(f)
-	list = make([]string, 0, iMin(count, 8192))
-	for {
-		line, err := br.ReadString('\n')
-		if err == nil {
-			line = strings.TrimRight(line, "\n")
-		} else if err != os.EOF {
-			return
-		}
-		list = append(list, line)
-		if err == os.EOF {
-			break
-		}
-		if count--; count == 0 {
-			break
-		}
-	}
-	return
 }
 
 // isRepeated tests if the array consists only of the s string repeated.
@@ -276,6 +203,57 @@ func generateData(n, l int) []string {
 			}
 		}
 		list = append(list, string(bb.Bytes()))
+	}
+	return list
+}
+
+// generateUnique generates a set of psuedo words that are unique
+// (as in a dictionary).
+func generateUnique(n int) []string {
+	list := make([]string, 0, n)
+	words := make(map[string]bool)
+	for ii := 0; ii < n; {
+		// Each word is up to 28 characters long.
+		l := rand.Intn(28)
+		bb := bytes.NewBuffer(make([]byte, l))
+		// Each word consists only of the lowercase letters.
+		for jj := 0; jj < l; jj++ {
+			d := rand.Intn(26)
+			bb.WriteRune('a' + d)
+		}
+		s := string(bb.Bytes())
+		if !words[s] {
+			list = append(list, s)
+			words[s] = true
+			ii++
+		}
+	}
+	return list
+}
+
+// generateNonUnique generates a set of psuedo words that may be
+// repeated numerous times.
+func generateNonUnique(n int) []string {
+	list := make([]string, 0, n)
+	for cc := 0; cc < n; {
+		// Each word is up to 28 characters long.
+		l := rand.Intn(28)
+		bb := bytes.NewBuffer(make([]byte, l))
+		// Each word consists only of the lowercase letters.
+		for jj := 0; jj < l; jj++ {
+			d := rand.Intn(26)
+			bb.WriteRune('a' + d)
+		}
+		// Repeat the word some number of times.
+		c := rand.Intn(100)
+		if c > (n - cc) {
+			c = n - cc
+		}
+		s := string(bb.Bytes())
+		for jj := 0; jj < c; jj++ {
+			list = append(list, s)
+		}
+		cc += c
 	}
 	return list
 }

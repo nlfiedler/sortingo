@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func TestInsertionSort(t *testing.T) {
+func TestCombSort(t *testing.T) {
 	testSortArguments(t, InsertionSort)
 	testSortAnimals(t, InsertionSort)
 	testSortRepeated(t, InsertionSort, smallDataSize)
@@ -18,6 +18,5 @@ func TestInsertionSort(t *testing.T) {
 	testSortRandom(t, InsertionSort, smallDataSize)
 	testSortDictWords(t, InsertionSort, smallDataSize)
 	testSortReversed(t, InsertionSort, smallDataSize)
-	testSortHamletWords(t, InsertionSort, smallDataSize)
-	testSortDictCalls(t, InsertionSort, smallDataSize)
+	testSortNonUnique(t, InsertionSort, smallDataSize)
 }

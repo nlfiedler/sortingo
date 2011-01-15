@@ -5,16 +5,12 @@
 #
 # $Id: $
 #
-# This makefile is used to run the unit tests.
-#
 
 include $(GOROOT)/src/Make.inc
 
-SRC=.
-
 TARG=sortingo
 GOFILES=\
-	$(SRC)/combsort.go\
-	$(SRC)/insertionsort.go\
+	combsort.go\
+	insertionsort.go\
 
 include $(GOROOT)/src/Make.pkg
