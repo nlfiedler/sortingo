@@ -10,7 +10,9 @@ TARG=sortingo
 GOFILES=\
 	combsort.go\
 	gnomesort.go\
+	heapsort.go\
 	insertionsort.go\
 	selectionsort.go\
+	shellsort.go\
 
 include $(GOROOT)/src/Make.pkg
