@@ -3,7 +3,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 #
-# $Id: $
+# $Id$
 #
 
 SUBDIRS = src/pkg/sortingo # src/cmd/sort src/cmd/bench
@@ -21,11 +21,8 @@ clean:
 		$(MAKE) -C $$dir clean; \
 	done
 
-test:
-# is there a better way?
-	for dir in $(SUBDIRS); do \
-		$(MAKE) -C $$dir test; \
-	done
+test: src/pkg/sortingo
+	$(MAKE) -C src/pkg/sortingo test
 
 # Declare dependency on package so commands are built last.
 # src/cmd/sort: src/pkg/sortingo

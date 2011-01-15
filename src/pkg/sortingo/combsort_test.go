@@ -3,6 +3,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 //
+// $Id$
+//
 
 package sortingo
 
@@ -11,12 +13,12 @@ import (
 )
 
 func TestCombSort(t *testing.T) {
-	testSortArguments(t, InsertionSort)
-	testSortAnimals(t, InsertionSort)
-	testSortRepeated(t, InsertionSort, smallDataSize)
-	testSortRepeatedCycle(t, InsertionSort, smallDataSize)
-	testSortRandom(t, InsertionSort, smallDataSize)
-	testSortDictWords(t, InsertionSort, smallDataSize)
-	testSortReversed(t, InsertionSort, smallDataSize)
-	testSortNonUnique(t, InsertionSort, smallDataSize)
+	testSortArguments(t, CombSort)
+	testSortAnimals(t, CombSort)
+	testSortRepeated(t, CombSort, smallDataSize)
+	testSortRepeatedCycle(t, CombSort, smallDataSize)
+	testSortRandom(t, CombSort, smallDataSize)
+	testSortDictWords(t, CombSort, smallDataSize)
+	testSortReversed(t, CombSort, smallDataSize)
+	testSortNonUnique(t, CombSort, smallDataSize)
 }
