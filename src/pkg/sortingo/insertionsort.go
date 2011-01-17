@@ -9,20 +9,15 @@ package sortingo
 // InsertionSort will sort the given slice of strings using the
 // basic insertion sort algorithm, with O(n^2) running time.
 func InsertionSort(a []string) {
-	InsertionSortRange(a, 0, len(a) - 1)
-}
-
-// InsertionSortRange will sort the specific range of elements in
-// the slice of strings. The low and high values are inclusive.
-func InsertionSortRange(a []string, low int, high int) {
-        if a == nil || len(a) < 2 || low < 0 || high <= low {
+	size := len(a)
+        if a == nil || size < 2 {
 		return;
         }
 
-        for i := low + 1; i <= high; i++ {
+        for i := 1; i < size; i++ {
 		pivot := a[i];
 		j := i;
-		for j > low && pivot < a[j - 1] {
+		for j > 0 && pivot < a[j - 1] {
 			a[j] = a[j - 1];
 			j--;
 		}
