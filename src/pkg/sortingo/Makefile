@@ -8,6 +8,7 @@ include $(GOROOT)/src/Make.inc
 
 TARG=sortingo
 GOFILES=\
+	binaryinsertionsort.go\
 	combsort.go\
 	gnomesort.go\
 	heapsort.go\
