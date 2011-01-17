@@ -45,6 +45,20 @@ func testSortArguments(t *testing.T, f func ([]string)) {
 		t.Log("three inputs not sorted")
 		t.Fail()
 	}
+	// test with all empty input
+	input = []string{"", "", "", "", "", "", "", "", "", ""}
+	f(input)
+	if !sort.StringsAreSorted(input) {
+		t.Log("empty inputs not sorted")
+		t.Fail()
+	}
+	// test with peculiar input
+	input = []string{"z", "m", "", "a", "d", "tt", "tt", "tt", "foo", "bar"}
+	f(input)
+	if !sort.StringsAreSorted(input) {
+		t.Log("peculiar inputs not sorted")
+		t.Fail()
+	}
 }
 
 // testSortAnimals runs a given sort function with the simple input
@@ -141,7 +155,7 @@ func testSortReversed(t *testing.T, f func ([]string), size int) {
 	sort.Sort(ri)
 	f(input)
 	if !sort.StringsAreSorted(input) {
-		t.Log("dictwords input not sorted")
+		t.Log("reversed dictwords input not sorted")
 		t.Fail()
 	}
 }
@@ -189,7 +203,7 @@ func isRepeated(arr []string, s string) bool {
 // Each string consists of the digits 0 through 9 and upper and lower
 // case letters (a..z, A..Z).
 func generateData(n, l int) []string {
-	list := make([]string, 0, n)
+	list := make([]string, n)
 	for ii := 0; ii < n; ii++ {
 		bb := bytes.NewBuffer(make([]byte, 0, l))
 		for jj := 0; jj < l; jj++ {
@@ -202,7 +216,7 @@ func generateData(n, l int) []string {
 				bb.WriteRune('a' + (d - 36))
 			}
 		}
-		list = append(list, string(bb.Bytes()))
+		list[ii] = string(bb.Bytes())
 	}
 	return list
 }
@@ -213,9 +227,9 @@ func generateUnique(n int) []string {
 	list := make([]string, 0, n)
 	words := make(map[string]bool)
 	for ii := 0; ii < n; {
-		// Each word is up to 28 characters long.
-		l := rand.Intn(28)
-		bb := bytes.NewBuffer(make([]byte, l))
+		// Each word is from 1 to 28 characters long.
+		l := 1 + rand.Intn(27)
+		bb := bytes.NewBuffer(make([]byte, 0, l))
 		// Each word consists only of the lowercase letters.
 		for jj := 0; jj < l; jj++ {
 			d := rand.Intn(26)
@@ -238,7 +252,7 @@ func generateNonUnique(n int) []string {
 	for cc := 0; cc < n; {
 		// Each word is up to 28 characters long.
 		l := rand.Intn(28)
-		bb := bytes.NewBuffer(make([]byte, l))
+		bb := bytes.NewBuffer(make([]byte, 0, l))
 		// Each word consists only of the lowercase letters.
 		for jj := 0; jj < l; jj++ {
 			d := rand.Intn(26)
