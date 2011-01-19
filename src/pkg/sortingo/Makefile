@@ -13,6 +13,7 @@ GOFILES=\
 	gnomesort.go\
 	heapsort.go\
 	insertionsort.go\
+	multikeyquicksort.go\
 	selectionsort.go\
 	shellsort.go\
 
