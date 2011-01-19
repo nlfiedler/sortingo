@@ -20,6 +20,10 @@ import (
 // smallDataSize is the recommended test size for the slower sorting
 // algorithms (e.g. insertion, gnome, selection).
 const smallDataSize = 512
+// mediumDataSize is the recommended test size for the sorting algorithms
+// that are faster than the typical slow sorts, but not necessarily as
+// fast as the memory efficient sorts.
+const mediumDataSize = 16384
 // largeDataSize is the recommended test size for the faster sorting
 // algorithms (e.g. burstsort, funnelsort).
 const largeDataSize = 65536
@@ -178,14 +182,6 @@ func shuffle(input []string) {
 		j := indices[i]
 		input[i], input[j] = input[j], input[i]
 	}
-}
-
-// iMin returns the minimum of x and y.
-func iMin(x, y int) int {
-	if x < y {
-		return x
-	}
-	return y
 }
 
 // isRepeated tests if the array consists only of the s string repeated.

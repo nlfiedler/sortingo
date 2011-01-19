@@ -13,10 +13,10 @@ import (
 func TestBinaryInsertionSort(t *testing.T) {
 	testSortArguments(t, BinaryInsertionSort)
 	testSortAnimals(t, BinaryInsertionSort)
-	testSortRepeated(t, BinaryInsertionSort, smallDataSize)
-	testSortRepeatedCycle(t, BinaryInsertionSort, smallDataSize)
- 	testSortRandom(t, BinaryInsertionSort, smallDataSize)
-  	testSortDictWords(t, BinaryInsertionSort, largeDataSize)
-	testSortReversed(t, BinaryInsertionSort, smallDataSize)
-	testSortNonUnique(t, BinaryInsertionSort, largeDataSize)
+	testSortRepeated(t, BinaryInsertionSort, mediumDataSize)
+	testSortRepeatedCycle(t, BinaryInsertionSort, mediumDataSize)
+ 	testSortRandom(t, BinaryInsertionSort, mediumDataSize)
+  	testSortDictWords(t, BinaryInsertionSort, mediumDataSize)
+	testSortReversed(t, BinaryInsertionSort, mediumDataSize)
+	testSortNonUnique(t, BinaryInsertionSort, mediumDataSize)
 }
