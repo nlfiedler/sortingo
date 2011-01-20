@@ -12,7 +12,6 @@ import (
 
 func TestHeapSort(t *testing.T) {
 	testSortArguments(t, HeapSort)
-	testSortAnimals(t, HeapSort)
 	testSortRepeated(t, HeapSort, smallDataSize)
 	testSortRepeatedCycle(t, HeapSort, smallDataSize)
 	testSortRandom(t, HeapSort, smallDataSize)

@@ -12,7 +12,6 @@ import (
 
 func TestShellSort(t *testing.T) {
 	testSortArguments(t, ShellSort)
-	testSortAnimals(t, ShellSort)
 	testSortRepeated(t, ShellSort, smallDataSize)
 	testSortRepeatedCycle(t, ShellSort, smallDataSize)
 	testSortRandom(t, ShellSort, smallDataSize)

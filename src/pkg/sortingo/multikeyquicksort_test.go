@@ -12,7 +12,6 @@ import (
 
 func TestMultikeyQuickSort(t *testing.T) {
 	testSortArguments(t, MultikeyQuickSort)
-	testSortAnimals(t, MultikeyQuickSort)
 	testSortRepeated(t, MultikeyQuickSort, largeDataSize)
 	testSortRepeatedCycle(t, MultikeyQuickSort, largeDataSize)
 	testSortRandom(t, MultikeyQuickSort, largeDataSize)

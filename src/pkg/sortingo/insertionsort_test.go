@@ -12,7 +12,6 @@ import (
 
 func TestInsertionSort(t *testing.T) {
 	testSortArguments(t, InsertionSort)
-	testSortAnimals(t, InsertionSort)
 	testSortRepeated(t, InsertionSort, smallDataSize)
 	testSortRepeatedCycle(t, InsertionSort, smallDataSize)
 	testSortRandom(t, InsertionSort, smallDataSize)

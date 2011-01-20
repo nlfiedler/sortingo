@@ -12,7 +12,6 @@ import (
 
 func TestGnomeSort(t *testing.T) {
 	testSortArguments(t, GnomeSort)
-	testSortAnimals(t, GnomeSort)
 	testSortRepeated(t, GnomeSort, smallDataSize)
 	testSortRepeatedCycle(t, GnomeSort, smallDataSize)
 	testSortRandom(t, GnomeSort, smallDataSize)

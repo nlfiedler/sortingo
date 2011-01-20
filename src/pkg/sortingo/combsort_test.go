@@ -12,7 +12,6 @@ import (
 
 func TestCombSort(t *testing.T) {
 	testSortArguments(t, CombSort)
-	testSortAnimals(t, CombSort)
 	testSortRepeated(t, CombSort, smallDataSize)
 	testSortRepeatedCycle(t, CombSort, smallDataSize)
 	testSortRandom(t, CombSort, smallDataSize)
