@@ -4,17 +4,16 @@
 # license that can be found in the LICENSE file.
 #
 
-SUBDIRS = src/pkg/sortingo # src/cmd/sort src/cmd/bench
+SUBDIRS = src/pkg/sortingo src/cmd/mbench
 
-.PHONY: clean subdirs $(SUBDIRS)
+.PHONY: all clean $(SUBDIRS)
 
-subdirs: $(SUBDIRS)
+all: install-pkg src/cmd/mbench
 
 $(SUBDIRS):
 	$(MAKE) -C $@
 
 clean:
-# is there a better way?
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir clean; \
 	done
@@ -22,8 +21,7 @@ clean:
 test: src/pkg/sortingo
 	$(MAKE) -C src/pkg/sortingo test
 
-# Declare dependency on package so commands are built last.
-# src/cmd/sort: src/pkg/sortingo
-# src/cmd/bench: src/pkg/sortingo
+install-pkg: src/pkg/sortingo
+	$(MAKE) -C src/pkg/sortingo install
 
 # TODO: add invocation of tago to build Emacs TAGS file

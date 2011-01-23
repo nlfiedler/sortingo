@@ -3,3 +3,4 @@ syntax: glob
 *.6
 _obj
 _test*
+src/cmd/mbench/mbench
