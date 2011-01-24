@@ -16,7 +16,7 @@ const insertionThreshold = 16
 // Sorts the slice of strings using a multikey quicksort that chooses
 // a pivot point using a "median of three" rule (or pseudo median of
 // nine for slices over a certain threshold). For very small slices,
-// a binary insertion sort is used.
+// a simple insertion sort is used.
 func MultikeyQuickSort(a []string) {
 	MultikeyQuickSortDepth(a, 0)
 }
@@ -26,7 +26,7 @@ func MultikeyQuickSort(a []string) {
 func MultikeyQuickSortDepth(a []string, depth int) {
 	n := len(a)
         if n < insertionThreshold {
-		BinaryInsertionSortDepth(a, depth)
+		InsertionSortDepth(a, depth)
 		return
         }
 
