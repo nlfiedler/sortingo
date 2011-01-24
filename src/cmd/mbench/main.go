@@ -12,7 +12,7 @@ import (
 	"rand"
 	"sortingo"
 	"strings"
-	"time"
+	"testing"
 )
 
 // Largest data size used in the micro benchmarks.
@@ -24,8 +24,6 @@ var sorterNames = []string{"Binsert", "Comb", "Gnome", "Heap", "Insert", "MkQ", 
 var sorters = make(map[string]func([]string))
 // sortSizes are the different sizes of data used in testing, in the desired run order.
 var sortSizes = []int{10, 20, 50, 100, 400}
-// sortCounts is the number of times to test a sort for a given size.
-var sortCounts = make(map[int]int)
 // dataSetNames are the names of the data sets, in the desired run order.
 var dataSetNames = []string{"Repeat", "RepeatCycle", "Random", "PseudoWords", "SmallAlphabet", "Genome"}
 // dataSets contains the various data sets that are used in testing.
@@ -41,11 +39,6 @@ func init() {
 	sorters["MkQ"] = sortingo.MultikeyQuickSort
 	sorters["Select"] = sortingo.SelectionSort
 	sorters["Shell"] = sortingo.ShellSort
-	sortCounts[10] = 500000
-	sortCounts[20] = 250000
-	sortCounts[50] = 100000
-	sortCounts[100] = 25000
-	sortCounts[400] = 5000
 
 	// Generate the repeated strings test data.
 	repeatedStrings := make([]string, largeDataSize)
@@ -144,29 +137,32 @@ func init() {
 	dataSets["Genome"] = genomeStrings
 }
 
-// main runs the micro benchmarks on the slower sorting algorithms.
+// main runs the micro benchmarks on the "slower" sorting algorithms
+// using small data sets (under 500 elements).
 func main() {
         // For each type of data set...
 	// and each data set size...
 	// and each sort implementation...
-	// run the sort many times and calculate an average run time.
+	// run the sort via the testing package benchmark facility.
         for _, dataSetName := range dataSetNames {
 		fmt.Printf("%s...\n", dataSetName)
 		dataSet := dataSets[dataSetName]
 		for _, size := range sortSizes {
 			input := make([]string, size)
-			runCount := sortCounts[size]
 			fmt.Printf("\t%d...\n", size)
 			for _, sorterName := range sorterNames {
 				sorter := sorters[sorterName]
 				fmt.Printf("\t\t%-10s:\t", sorterName)
-				start := time.Nanoseconds()
-				for run := 0; run < runCount; run++ {
-					copy(input, dataSet)
-					sorter(input)
+				harness := func(b *testing.B) {
+					for i := 0; i < b.N; i++ {
+						b.StopTimer()
+						copy(input, dataSet)
+						b.StartTimer()
+						sorter(input)
+					}
 				}
-				runtime := time.Nanoseconds() - start
-				fmt.Printf("%d ms\n", runtime / 1e6)
+				result := testing.Benchmark(harness)
+				fmt.Println(result)
 			}
 		}
         }
