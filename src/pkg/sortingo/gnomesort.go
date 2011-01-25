@@ -10,22 +10,22 @@ package sortingo
 // pseudocode on Wikipedia. The running time is O(n^2).
 func GnomeSort(input []string) {
 	size := len(input)
-        if input == nil || size < 2 {
+	if input == nil || size < 2 {
 		return
-        }
-        i := 1
-        j := 2
-        for i < size {
-		if input[i - 1] <= input[i] {
+	}
+	i := 1
+	j := 2
+	for i < size {
+		if input[i-1] <= input[i] {
 			i = j
 			j++
 		} else {
-			input[i - 1], input[i] = input[i], input[i - 1]
+			input[i-1], input[i] = input[i], input[i-1]
 			i--
 			if i == 0 {
 				i = j
 				j++
 			}
 		}
-        }
+	}
 }

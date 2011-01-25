@@ -12,14 +12,14 @@ package sortingo
 // similar algorithms.
 func CombSort(input []string) {
 	size := len(input)
-        if input == nil || size < 2 {
+	if input == nil || size < 2 {
 		return
-        }
+	}
 
-        gap := size //initialize gap size
-        swapped := true
+	gap := size //initialize gap size
+	swapped := true
 
-        for gap > 1 || swapped {
+	for gap > 1 || swapped {
 		// Update the gap value for the next comb.
 		if gap > 1 {
 			gap = int(float32(gap) / 1.3)
@@ -30,12 +30,12 @@ func CombSort(input []string) {
 
 		// a single "comb" over the input list
 		swapped = false
-		for i := 0; i + gap < size; i++ {
-			if input[i] > input[i + gap] {
-				input[i], input[i + gap] = input[i + gap], input[i]
+		for i := 0; i+gap < size; i++ {
+			if input[i] > input[i+gap] {
+				input[i], input[i+gap] = input[i+gap], input[i]
 				// Signal that the list is not guaranteed sorted.
 				swapped = true
 			}
 		}
-        }
+	}
 }

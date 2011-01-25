@@ -10,6 +10,7 @@ import (
 	"bytes"
 	"fmt"
 	"rand"
+	"sort"
 	"sortingo"
 	"strings"
 	"testing"
@@ -19,7 +20,7 @@ import (
 const largeDataSize = 400
 
 // sorterNames are the name of the sort algorithms in the desired run order.
-var sorterNames = []string{"Binsert", "Comb", "Gnome", "Heap", "Insert", "MkQ", "Select", "Shell"}
+var sorterNames = []string{"Binsert", "Comb", "Gnome", "Heap", "Insert", "MkQ", "Quick", "Select", "Shell"}
 // sorters maps sort algorithm names to implementing functions.
 var sorters = make(map[string]func([]string))
 // sortSizes are the different sizes of data used in testing, in the desired run order.
@@ -37,25 +38,26 @@ func init() {
 	sorters["Heap"] = sortingo.HeapSort
 	sorters["Insert"] = sortingo.InsertionSort
 	sorters["MkQ"] = sortingo.MultikeyQuickSort
+	sorters["Quick"] = sort.SortStrings
 	sorters["Select"] = sortingo.SelectionSort
 	sorters["Shell"] = sortingo.ShellSort
 
 	// Generate the repeated strings test data.
 	repeatedStrings := make([]string, largeDataSize)
 	a100 := strings.Repeat("A", 100)
-	for idx, _ := range repeatedStrings {
+	for idx := range repeatedStrings {
 		repeatedStrings[idx] = a100
 	}
 	dataSets["Repeat"] = repeatedStrings
 
 	// Generate a repeating cycle of strings.
 	strs := make([]string, len(a100))
-	for i, _ := range strs {
-		strs[i] = a100[0:i + 1]
+	for i := range strs {
+		strs[i] = a100[0 : i+1]
 	}
 	repeatedCycleStrings := make([]string, largeDataSize)
 	c := 0
-	for i, _ := range repeatedCycleStrings {
+	for i := range repeatedCycleStrings {
 		repeatedCycleStrings[i] = strs[c]
 		if c++; c >= len(strs) {
 			c = 0
@@ -65,7 +67,7 @@ func init() {
 
 	// Generate a set of random strings, each of length 100.
 	randomStrings := make([]string, largeDataSize)
-	for i, _ := range randomStrings {
+	for i := range randomStrings {
 		bb := bytes.NewBuffer(make([]byte, 0, 100))
 		for j := 0; j < 100; j++ {
 			d := rand.Intn(95)
@@ -78,7 +80,7 @@ func init() {
 	// Generate a set of unique pseudo words.
 	uniqueWords := make([]string, largeDataSize)
 	wordExists := make(map[string]bool)
-	for i, _ := range uniqueWords {
+	for i := range uniqueWords {
 		var s string
 		// Loop until a unique random word is generated.
 		for {
@@ -103,7 +105,7 @@ func init() {
 	// Generate a set of random strings, each of length 100,
 	// consisting of a small alphabet of characters.
 	smallAlphaStrings := make([]string, largeDataSize)
-	for i, _ := range smallAlphaStrings {
+	for i := range smallAlphaStrings {
 		l := 1 + rand.Intn(100)
 		bb := bytes.NewBuffer(make([]byte, 0, l))
 		for j := 0; j < l; j++ {
@@ -117,7 +119,7 @@ func init() {
 	// Generate a set of random "genome" strings, each of length 9,
 	// consisting of the letters a, c, g, t.
 	genomeStrings := make([]string, largeDataSize)
-	for i, _ := range genomeStrings {
+	for i := range genomeStrings {
 		bb := bytes.NewBuffer(make([]byte, 0, 9))
 		for j := 0; j < 9; j++ {
 			d := rand.Intn(4)
@@ -140,11 +142,11 @@ func init() {
 // main runs the micro benchmarks on the "slower" sorting algorithms
 // using small data sets (under 500 elements).
 func main() {
-        // For each type of data set...
+	// For each type of data set...
 	// and each data set size...
 	// and each sort implementation...
 	// run the sort via the testing package benchmark facility.
-        for _, dataSetName := range dataSetNames {
+	for _, dataSetName := range dataSetNames {
 		fmt.Printf("%s...\n", dataSetName)
 		dataSet := dataSets[dataSetName]
 		for _, size := range sortSizes {
@@ -165,5 +167,5 @@ func main() {
 				fmt.Println(result)
 			}
 		}
-        }
+	}
 }

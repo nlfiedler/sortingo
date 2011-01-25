@@ -12,17 +12,17 @@ package sortingo
 // O(n^2) though often performs better in practice.
 func ShellSort(input []string) {
 	size := len(input)
-        if input == nil || size < 2 {
+	if input == nil || size < 2 {
 		return
-        }
+	}
 
-        inc := size / 2
-        for inc > 0 {
+	inc := size / 2
+	for inc > 0 {
 		for ii := inc; ii < size; ii++ {
 			temp := input[ii]
 			jj := ii
-			for jj >= inc && input[jj - inc] > temp {
-				input[jj] = input[jj - inc]
+			for jj >= inc && input[jj-inc] > temp {
+				input[jj] = input[jj-inc]
 				jj -= inc
 			}
 			input[jj] = temp
@@ -33,5 +33,5 @@ func ShellSort(input []string) {
 		} else {
 			inc = inc * 5 / 11
 		}
-        }
+	}
 }

@@ -45,18 +45,18 @@ func init() {
 	// Generate the repeated strings test data.
 	repeatedStrings = make([]string, largeDataSize)
 	a100 := strings.Repeat("A", 100)
-	for idx, _ := range repeatedStrings {
+	for idx := range repeatedStrings {
 		repeatedStrings[idx] = a100
 	}
 
 	// Generate a repeating cycle of strings.
 	strs := make([]string, len(a100))
-	for i, _ := range strs {
-		strs[i] = a100[0:i + 1]
+	for i := range strs {
+		strs[i] = a100[0 : i+1]
 	}
 	repeatedCycleStrings = make([]string, largeDataSize)
 	c := 0
-	for i, _ := range repeatedCycleStrings {
+	for i := range repeatedCycleStrings {
 		repeatedCycleStrings[i] = strs[c]
 		if c++; c >= len(strs) {
 			c = 0
@@ -65,13 +65,13 @@ func init() {
 
 	// Generate a set of random strings, each of length 100.
 	randomStrings = make([]string, largeDataSize)
-	for i, _ := range randomStrings {
+	for i := range randomStrings {
 		bb := bytes.NewBuffer(make([]byte, 0, 100))
 		for j := 0; j < 100; j++ {
 			d := rand.Intn(62)
-			if (d < 10) {
+			if d < 10 {
 				bb.WriteRune('0' + d)
-			} else if (d < 36) {
+			} else if d < 36 {
 				bb.WriteRune('A' + (d - 10))
 			} else {
 				bb.WriteRune('a' + (d - 36))
@@ -83,7 +83,7 @@ func init() {
 	// Generate a set of unique pseudo words.
 	uniqueWords = make([]string, largeDataSize)
 	wordExists := make(map[string]bool)
-	for i, _ := range uniqueWords {
+	for i := range uniqueWords {
 		var s string
 		// Loop until a unique random word is generated.
 		for {
@@ -132,7 +132,7 @@ func init() {
 
 // testSortArguments runs a given sort function with the most
 // basic of input sequences in order to test its robustness.
-func testSortArguments(t *testing.T, f func ([]string)) {
+func testSortArguments(t *testing.T, f func([]string)) {
 	// these should silently do nothing
 	f(nil)
 	f(make([]string, 0))
@@ -162,7 +162,7 @@ func testSortArguments(t *testing.T, f func ([]string)) {
 
 // testRepeated runs a given sort function over a sequence of
 // repeated strings.
-func testSortRepeated(t *testing.T, f func ([]string), size int) {
+func testSortRepeated(t *testing.T, f func([]string), size int) {
 	checkTestSize(t, size)
 	input := make([]string, size)
 	copy(input, repeatedStrings)
@@ -175,7 +175,7 @@ func testSortRepeated(t *testing.T, f func ([]string), size int) {
 // testSortRepeatedCycle generates a repeating cycle of strings and
 // runs the given sort on that data. The size is the number of elements
 // to generate for the test.
-func testSortRepeatedCycle(t *testing.T, f func ([]string), size int) {
+func testSortRepeatedCycle(t *testing.T, f func([]string), size int) {
 	checkTestSize(t, size)
 	input := make([]string, size)
 	copy(input, repeatedCycleStrings)
@@ -187,7 +187,7 @@ func testSortRepeatedCycle(t *testing.T, f func ([]string), size int) {
 
 // testSortRandom runs the given sort on a randomly generated data set
 // consisting of strings of 100 letters and upper and lower case letters.
-func testSortRandom(t *testing.T, f func ([]string), size int) {
+func testSortRandom(t *testing.T, f func([]string), size int) {
 	checkTestSize(t, size)
 	input := make([]string, size)
 	copy(input, randomStrings)
@@ -199,7 +199,7 @@ func testSortRandom(t *testing.T, f func ([]string), size int) {
 
 // testSortDictWords generates a set of random pseudo-words and runs the
 // given sort function on that set.
-func testSortDictWords(t *testing.T, f func ([]string), size int) {
+func testSortDictWords(t *testing.T, f func([]string), size int) {
 	checkTestSize(t, size)
 	input := make([]string, size)
 	copy(input, uniqueWords)
@@ -211,7 +211,7 @@ func testSortDictWords(t *testing.T, f func ([]string), size int) {
 
 // testSortSorted runs the given sort function on an input set that
 // is already in sorted order.
-func testSortSorted(t *testing.T, f func ([]string), size int) {
+func testSortSorted(t *testing.T, f func([]string), size int) {
 	checkTestSize(t, size)
 	input := make([]string, size)
 	copy(input, uniqueWords)
@@ -225,13 +225,14 @@ func testSortSorted(t *testing.T, f func ([]string), size int) {
 // ReverseStringArray is identical to sort.StringArray except that the
 // contents are sorted in reverse order.
 type ReverseStringArray []string
-func (p ReverseStringArray) Len() int		{ return len(p) }
+
+func (p ReverseStringArray) Len() int           { return len(p) }
 func (p ReverseStringArray) Less(i, j int) bool { return p[i] > p[j] }
-func (p ReverseStringArray) Swap(i, j int)	{ p[i], p[j] = p[j], p[i] }
+func (p ReverseStringArray) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
 
 // testSortReversed runs the given sort function on an input set that
 // is in reverse sorted order.
-func testSortReversed(t *testing.T, f func ([]string), size int) {
+func testSortReversed(t *testing.T, f func([]string), size int) {
 	checkTestSize(t, size)
 	input := make([]string, size)
 	copy(input, uniqueWords)
@@ -246,11 +247,11 @@ func testSortReversed(t *testing.T, f func ([]string), size int) {
 // testSortNonUnique runs the given sort function on a set of words
 // that are not necessarily unique (many will repeat a random number
 // of times).
-func testSortNonUnique(t *testing.T, f func ([]string), size int) {
+func testSortNonUnique(t *testing.T, f func([]string), size int) {
 	checkTestSize(t, size)
 	input := make([]string, size)
 	copy(input, nonUniqueWords)
-	f(input);
+	f(input)
 	if !sort.StringsAreSorted(input) {
 		t.Error("non-unique words input not sorted")
 	}

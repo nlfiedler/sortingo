@@ -14,8 +14,8 @@ func TestBinaryInsertionSort(t *testing.T) {
 	testSortArguments(t, BinaryInsertionSort)
 	testSortRepeated(t, BinaryInsertionSort, mediumDataSize)
 	testSortRepeatedCycle(t, BinaryInsertionSort, mediumDataSize)
- 	testSortRandom(t, BinaryInsertionSort, mediumDataSize)
-  	testSortDictWords(t, BinaryInsertionSort, mediumDataSize)
+	testSortRandom(t, BinaryInsertionSort, mediumDataSize)
+	testSortDictWords(t, BinaryInsertionSort, mediumDataSize)
 	testSortReversed(t, BinaryInsertionSort, mediumDataSize)
 	testSortNonUnique(t, BinaryInsertionSort, mediumDataSize)
 }

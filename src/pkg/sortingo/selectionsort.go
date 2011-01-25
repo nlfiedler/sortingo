@@ -11,11 +11,11 @@ package sortingo
 // O(n^2) running time.
 func SelectionSort(input []string) {
 	size := len(input)
-        if input == nil || size < 2 {
+	if input == nil || size < 2 {
 		return
-        }
+	}
 
-        for ii := 0; ii < size; ii++ {
+	for ii := 0; ii < size; ii++ {
 		min := ii
 		for jj := ii + 1; jj < size; jj++ {
 			if input[jj] < input[min] {
