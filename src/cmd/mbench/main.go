@@ -143,18 +143,18 @@ func init() {
 }
 
 func usage() {
-        fmt.Println("Usage: mbench [options]")
-        fmt.Println("\t--data <regex>")
-        fmt.Println("\t\tSelect the data set whose name matches the regular expression.")
-        fmt.Println("\t\tFor example, '--data random' would use only the random data set.")
-        fmt.Println("\t--help")
-        fmt.Println("\t\tDisplay this usage information.")
-        fmt.Println("\t--list")
-        fmt.Println("\t\tDisplay a list of the supported data sets and sorting algorithms.")
-        fmt.Println("\t--sort <regex>")
-        fmt.Println("\t\tSelect the sort algorithms whose name matches the regular")
-        fmt.Println("\t\texpression. For example, '--sort (comb|insert)' would run")
-        fmt.Println("\t\tboth versions of the insertion and comb sort algorithms.")
+	fmt.Println("Usage: mbench [options]")
+	fmt.Println("\t--data <regex>")
+	fmt.Println("\t\tSelect the data set whose name matches the regular expression.")
+	fmt.Println("\t\tFor example, '--data random' would use only the random data set.")
+	fmt.Println("\t--help")
+	fmt.Println("\t\tDisplay this usage information.")
+	fmt.Println("\t--list")
+	fmt.Println("\t\tDisplay a list of the supported data sets and sorting algorithms.")
+	fmt.Println("\t--sort <regex>")
+	fmt.Println("\t\tSelect the sort algorithms whose name matches the regular")
+	fmt.Println("\t\texpression. For example, '--sort (comb|insert)' would run")
+	fmt.Println("\t\tboth versions of the insertion and comb sort algorithms.")
 }
 
 // main runs the micro benchmarks on the "slower" sorting algorithms
@@ -172,15 +172,15 @@ func main() {
 	}
 
 	if *list {
-	        fmt.Println("Data sets")
+		fmt.Println("Data sets")
 		for _, dataSetName := range dataSetNames {
-                        fmt.Printf("\t%s\n", dataSetName)
-                }
-                fmt.Println("Sorting algorithms")
+			fmt.Printf("\t%s\n", dataSetName)
+		}
+		fmt.Println("Sorting algorithms")
 		for _, sorterName := range sorterNames {
-                        fmt.Printf("\t%s\n", sorterName)
-                }
-                os.Exit(0)
+			fmt.Printf("\t%s\n", sorterName)
+		}
+		os.Exit(0)
 	}
 
 	if *data != "" {
@@ -213,7 +213,7 @@ func main() {
 		sorterNames = newSort
 	}
 
-        // Avoid recreating the input arrays over and over again.
+	// Avoid recreating the input arrays over and over again.
 	inputSets := make(map[int][]string)
 	for _, size := range sortSizes {
 		inputSets[size] = make([]string, size)
