@@ -3,25 +3,39 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 #
+# Based on a sample by Dave Cheney via github.
+#
 
-SUBDIRS = src/pkg/sortingo src/cmd/mbench
+include $(GOROOT)/src/Make.inc
 
-.PHONY: all clean $(SUBDIRS)
+CMDS=\
+	src/cmd/mbench
 
-all: install-pkg src/cmd/mbench
+PKGS=\
+	src/pkg/sortingo
 
-$(SUBDIRS):
-	$(MAKE) -C $@
+all: make
 
-clean:
-	for dir in $(SUBDIRS); do \
-		$(MAKE) -C $$dir clean; \
-	done
+make: $(patsubst %, %.install, $(PKGS)) $(patsubst %, %.make, $(CMDS))
+clean: $(patsubst %, %.clean, $(PKGS)) $(patsubst %, %.clean, $(CMDS))
+nuke: $(patsubst %, %.nuke, $(PKGS)) $(patsubst %, %.nuke, $(CMDS))
+test: $(patsubst %, %.test, $(PKGS)) $(patsubst %, %.test, $(CMDS))
 
-test: src/pkg/sortingo
-	$(MAKE) -C src/pkg/sortingo test
+%.install:
+	$(MAKE) -C $* install
 
-install-pkg: src/pkg/sortingo
-	$(MAKE) -C src/pkg/sortingo install
+# In the case of multiple packages with a specific dependency order...
+#package-2.install: package-1.install
+#package-1.install package-2.install: package-3.install
 
-# TODO: add invocation of tago to build Emacs TAGS file
+%.make: %.install
+	$(MAKE) -C $*
+
+%.clean:
+	$(MAKE) -C $* clean
+
+%.nuke:
+	$(MAKE) -C $* nuke
+
+%.test:
+	$(MAKE) -C $* test
