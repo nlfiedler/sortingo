@@ -17,7 +17,8 @@ PKGS=\
 all: make
 
 make: $(patsubst %, %.install, $(PKGS)) $(patsubst %, %.make, $(CMDS))
-clean: $(patsubst %, %.clean, $(PKGS)) $(patsubst %, %.clean, $(CMDS))
+# nuke the package so we don't link against the installed version
+clean: $(patsubst %, %.nuke, $(PKGS)) $(patsubst %, %.clean, $(CMDS))
 nuke: $(patsubst %, %.nuke, $(PKGS)) $(patsubst %, %.nuke, $(CMDS))
 test: $(patsubst %, %.test, $(PKGS)) $(patsubst %, %.test, $(CMDS))
 
