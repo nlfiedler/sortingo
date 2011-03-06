@@ -12,6 +12,7 @@ GOFILES=\
 	combsort.go\
 	gnomesort.go\
 	heapsort.go\
+	hybridcombsort.go\
 	insertionsort.go\
 	mergesort.go\
 	multikeyquicksort.go\
