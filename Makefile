@@ -9,7 +9,8 @@
 include $(GOROOT)/src/Make.inc
 
 CMDS=\
-	src/cmd/mbench
+	src/cmd/mbench\
+	src/cmd/bench
 
 PKGS=\
 	src/pkg/sortingo
