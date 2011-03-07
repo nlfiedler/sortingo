@@ -4,3 +4,4 @@ syntax: glob
 _obj
 _test*
 src/cmd/mbench/mbench
+src/cmd/bench/bench
