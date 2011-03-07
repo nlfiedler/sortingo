@@ -30,7 +30,7 @@ var sortSizes = []int{330000, 1000000, 3000000}
 // dataSetNames are the names of the data sets, in the desired run order.
 var dataSetNames = []string{"Repeat", "RepeatCycle", "Random", "PseudoWords", "SmallAlphabet", "Genome"}
 // dataGenerators maps data set names to data generator functions.
-var dataGenerators = make(map[string]func(size int)[]string)
+var dataGenerators = make(map[string]func(size int) []string)
 
 // init sets up the benchmark data structures.
 func init() {

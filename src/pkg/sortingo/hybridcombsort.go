@@ -14,24 +14,24 @@ package sortingo
 // for determining the gap values.
 func HybridCombSort(a []string) {
 	size := len(a)
-        if a == nil || size < 2 {
+	if a == nil || size < 2 {
 		return
-        }
+	}
 
-        gap := size
-        for gap > 8 {
-		gap = (10 * gap) / 13;
+	gap := size
+	for gap > 8 {
+		gap = (10 * gap) / 13
 		if gap == 10 || gap == 9 {
 			gap = 11
 		}
-		for i := 0; i + gap < size; i++ {
+		for i := 0; i+gap < size; i++ {
 			j := i + gap
 			if a[i] > a[j] {
 				a[i], a[j] = a[j], a[i]
 			}
 		}
-        }
-        // At this point the input is nearly sorted, a case for which
-        // insertion sort performs very well.
-        InsertionSort(a)
+	}
+	// At this point the input is nearly sorted, a case for which
+	// insertion sort performs very well.
+	InsertionSort(a)
 }
