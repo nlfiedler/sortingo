@@ -43,7 +43,7 @@ func init() {
 	sorters["HybridComb"] = sortingo.HybridCombSort
 	sorters["Insert"] = sortingo.InsertionSort
 	sorters["MkQ"] = sortingo.MultikeyQuickSort
-	sorters["Quick"] = sort.SortStrings
+	sorters["Quick"] = sort.Strings
 	sorters["Select"] = sortingo.SelectionSort
 	sorters["Shell"] = sortingo.ShellSort
 

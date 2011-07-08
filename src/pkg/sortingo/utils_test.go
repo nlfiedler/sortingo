@@ -215,7 +215,7 @@ func testSortSorted(t *testing.T, f func([]string), size int) {
 	checkTestSize(t, size)
 	input := make([]string, size)
 	copy(input, uniqueWords)
-	sort.SortStrings(input)
+	sort.Strings(input)
 	f(input)
 	if !sort.StringsAreSorted(input) {
 		t.Error("sorted dictwords input not sorted")
