@@ -11,7 +11,7 @@ package sortingo
 import (
 	"bytes"
 	"fmt"
-	"rand"
+	"math/rand"
 	"sort"
 	"strings"
 	"testing"
