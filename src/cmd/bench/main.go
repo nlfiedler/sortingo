@@ -249,10 +249,10 @@ func main() {
 				times := new([runCount]int64)
 				for run := 0; run < runCount; run++ {
 					copy(input, dataSet)
-					t1 := time.Nanoseconds()
+					t1 := time.Now()
 					sorter(input)
-					t2 := time.Nanoseconds()
-					times[run] = (t2 - t1) / 1000000
+					t2 := time.Now()
+					times[run] = (t2.Sub(t1).Nanoseconds()) / 1000000
 				}
 
 				// Find the average of the run times. The run times
