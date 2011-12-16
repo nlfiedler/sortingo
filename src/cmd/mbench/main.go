@@ -75,7 +75,7 @@ func init() {
 	for i := range randomStrings {
 		bb := bytes.NewBuffer(make([]byte, 0, 100))
 		for j := 0; j < 100; j++ {
-			d := rand.Intn(95)
+			d := rand.Int31n(95)
 			bb.WriteRune(' ' + d)
 		}
 		randomStrings[i] = string(bb.Bytes())
@@ -94,7 +94,7 @@ func init() {
 			bb := bytes.NewBuffer(make([]byte, 0, l))
 			// Each word consists only of the lowercase letters.
 			for j := 0; j < l; j++ {
-				d := rand.Intn(26)
+				d := rand.Int31n(26)
 				bb.WriteRune('a' + d)
 			}
 			s = string(bb.Bytes())
@@ -114,7 +114,7 @@ func init() {
 		l := 1 + rand.Intn(100)
 		bb := bytes.NewBuffer(make([]byte, 0, l))
 		for j := 0; j < l; j++ {
-			d := rand.Intn(9)
+			d := rand.Int31n(9)
 			bb.WriteRune('a' + d)
 		}
 		smallAlphaStrings[i] = string(bb.Bytes())
