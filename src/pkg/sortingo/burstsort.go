@@ -9,16 +9,21 @@ package sortingo
 // alphabetSize is the number of character supported for the trie used
 // in sorting (strings are treated as arrays of uint8 values).
 const alphabetSize = 256
+
 // nullterm represents the null terminator character.
 const nullterm = '\000'
+
 // threshold is the maximum number of elements in any given bucket; for
 // null bucket set, this is the size of each of the chained buckets.
 const threshold = 8192
+
 // thresholdMinusOne is used to store reference to next bucket in last
 // cell of bucket.
 const thresholdMinusOne = threshold - 1
+
 // bucketStartSize is the initial size for new buckets.
 const bucketStartSize = 16
+
 // bucketGrowthFactor is the bucket growth factor.
 const bucketGrowthFactor = 8
 

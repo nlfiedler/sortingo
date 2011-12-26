@@ -23,12 +23,16 @@ const runCount = 5
 
 // sorterNames are the name of the sort algorithms in the desired run order.
 var sorterNames = []string{"Merge"}
+
 // sorters maps sort algorithm names to implementing functions.
 var sorters = make(map[string]func([]string))
+
 // sortSizes are the different sizes of data used in testing, in the desired run order.
 var sortSizes = []int{330000, 1000000, 3000000}
+
 // dataSetNames are the names of the data sets, in the desired run order.
 var dataSetNames = []string{"Repeat", "RepeatCycle", "Random", "PseudoWords", "SmallAlphabet", "Genome"}
+
 // dataGenerators maps data set names to data generator functions.
 var dataGenerators = make(map[string]func(size int) []string)
 

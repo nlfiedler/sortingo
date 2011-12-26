@@ -23,13 +23,17 @@ import (
 const largeDataSize = 400
 
 // sorterNames are the name of the sort algorithms in the desired run order.
-var sorterNames = []string{"Binsert", "Comb", "2PivotQ", "Gnome", "Heap", "HybridComb", "Insert", "MkQ", "Quick", "Select", "Shell"}
+var sorterNames = []string{"Binsert", "Comb", "2PivotQ", "Gnome", "Heap", "HybridComb", "Insert", "Intro", "MkQ", "Quick", "Select", "Shell"}
+
 // sorters maps sort algorithm names to implementing functions.
 var sorters = make(map[string]func([]string))
+
 // sortSizes are the different sizes of data used in testing, in the desired run order.
-var sortSizes = []int{10, 20, 50, 100, 400}
+var sortSizes = []int{12, 20, 52, 100, 400}
+
 // dataSetNames are the names of the data sets, in the desired run order.
 var dataSetNames = []string{"Repeat", "RepeatCycle", "Random", "PseudoWords", "SmallAlphabet", "Genome"}
+
 // dataSets contains the various data sets that are used in testing.
 var dataSets = make(map[string][]string)
 
@@ -42,6 +46,7 @@ func init() {
 	sorters["Heap"] = sortingo.HeapSort
 	sorters["HybridComb"] = sortingo.HybridCombSort
 	sorters["Insert"] = sortingo.InsertionSort
+	sorters["Intro"] = sortingo.IntroSort
 	sorters["MkQ"] = sortingo.MultikeyQuickSort
 	sorters["Quick"] = sort.Strings
 	sorters["Select"] = sortingo.SelectionSort

@@ -16,6 +16,7 @@ GOFILES=\
 	heapsort.go\
 	hybridcombsort.go\
 	insertionsort.go\
+	introsort.go\
 	mergesort.go\
 	multikeyquicksort.go\
 	selectionsort.go\

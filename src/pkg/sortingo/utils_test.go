@@ -20,10 +20,12 @@ import (
 // smallDataSize is the recommended test size for the slower sorting
 // algorithms (e.g. insertion, gnome, selection).
 const smallDataSize = 512
+
 // mediumDataSize is the recommended test size for the sorting algorithms
 // that are faster than the typical slow sorts, but not necessarily as
 // fast as the memory efficient sorts.
 const mediumDataSize = 16384
+
 // largeDataSize is the recommended test size for the faster sorting
 // algorithms (e.g. burstsort, funnelsort). This is also the largest
 // allowable size for testing.
@@ -31,12 +33,16 @@ const largeDataSize = 65536
 
 // repeatedStrings contains a sequence of repeated strings.
 var repeatedStrings []string
+
 // repeatedCycleStrings contains a repeating sequence of strings.
 var repeatedCycleStrings []string
+
 // randomStrings consists of strings of 100 mixed-case letters and numbers.
 var randomStrings []string
+
 // uniqueWords consists of unique pseudo words, similar to a dictionary.
 var uniqueWords []string
+
 // nonUniqueWords consists of pseudo words that may repeat numerous times.
 var nonUniqueWords []string
 
