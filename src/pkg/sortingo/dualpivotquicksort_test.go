@@ -12,10 +12,10 @@ import (
 
 func TestDualPivotQuickSort(t *testing.T) {
 	testSortArguments(t, DualPivotQuickSort)
-	testSortRepeated(t, DualPivotQuickSort, smallDataSize)
-	testSortRepeatedCycle(t, DualPivotQuickSort, smallDataSize)
-	testSortRandom(t, DualPivotQuickSort, smallDataSize)
-	testSortDictWords(t, DualPivotQuickSort, smallDataSize)
-	testSortReversed(t, DualPivotQuickSort, smallDataSize)
-	testSortNonUnique(t, DualPivotQuickSort, smallDataSize)
+	testSortRepeated(t, DualPivotQuickSort, mediumDataSize)
+	testSortRepeatedCycle(t, DualPivotQuickSort, mediumDataSize)
+	testSortRandom(t, DualPivotQuickSort, mediumDataSize)
+	testSortDictWords(t, DualPivotQuickSort, mediumDataSize)
+	testSortReversed(t, DualPivotQuickSort, mediumDataSize)
+	testSortNonUnique(t, DualPivotQuickSort, mediumDataSize)
 }

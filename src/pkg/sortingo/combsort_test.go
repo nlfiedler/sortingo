@@ -12,10 +12,10 @@ import (
 
 func TestCombSort(t *testing.T) {
 	testSortArguments(t, CombSort)
-	testSortRepeated(t, CombSort, smallDataSize)
-	testSortRepeatedCycle(t, CombSort, smallDataSize)
-	testSortRandom(t, CombSort, smallDataSize)
-	testSortDictWords(t, CombSort, smallDataSize)
-	testSortReversed(t, CombSort, smallDataSize)
-	testSortNonUnique(t, CombSort, smallDataSize)
+	testSortRepeated(t, CombSort, mediumDataSize)
+	testSortRepeatedCycle(t, CombSort, mediumDataSize)
+	testSortRandom(t, CombSort, mediumDataSize)
+	testSortDictWords(t, CombSort, mediumDataSize)
+	testSortReversed(t, CombSort, mediumDataSize)
+	testSortNonUnique(t, CombSort, mediumDataSize)
 }

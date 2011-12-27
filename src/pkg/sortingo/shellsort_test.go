@@ -12,10 +12,10 @@ import (
 
 func TestShellSort(t *testing.T) {
 	testSortArguments(t, ShellSort)
-	testSortRepeated(t, ShellSort, smallDataSize)
-	testSortRepeatedCycle(t, ShellSort, smallDataSize)
-	testSortRandom(t, ShellSort, smallDataSize)
-	testSortDictWords(t, ShellSort, smallDataSize)
-	testSortReversed(t, ShellSort, smallDataSize)
-	testSortNonUnique(t, ShellSort, smallDataSize)
+	testSortRepeated(t, ShellSort, mediumDataSize)
+	testSortRepeatedCycle(t, ShellSort, mediumDataSize)
+	testSortRandom(t, ShellSort, mediumDataSize)
+	testSortDictWords(t, ShellSort, mediumDataSize)
+	testSortReversed(t, ShellSort, mediumDataSize)
+	testSortNonUnique(t, ShellSort, mediumDataSize)
 }

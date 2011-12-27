@@ -12,10 +12,10 @@ import (
 
 func TestHeapSort(t *testing.T) {
 	testSortArguments(t, HeapSort)
-	testSortRepeated(t, HeapSort, smallDataSize)
-	testSortRepeatedCycle(t, HeapSort, smallDataSize)
-	testSortRandom(t, HeapSort, smallDataSize)
-	testSortDictWords(t, HeapSort, smallDataSize)
-	testSortReversed(t, HeapSort, smallDataSize)
-	testSortNonUnique(t, HeapSort, smallDataSize)
+	testSortRepeated(t, HeapSort, mediumDataSize)
+	testSortRepeatedCycle(t, HeapSort, mediumDataSize)
+	testSortRandom(t, HeapSort, mediumDataSize)
+	testSortDictWords(t, HeapSort, mediumDataSize)
+	testSortReversed(t, HeapSort, mediumDataSize)
+	testSortNonUnique(t, HeapSort, mediumDataSize)
 }

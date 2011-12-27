@@ -12,10 +12,10 @@ import (
 
 func TestMergeSort(t *testing.T) {
 	testSortArguments(t, MergeSort)
-	testSortRepeated(t, MergeSort, smallDataSize)
-	testSortRepeatedCycle(t, MergeSort, smallDataSize)
-	testSortRandom(t, MergeSort, smallDataSize)
-	testSortDictWords(t, MergeSort, smallDataSize)
-	testSortReversed(t, MergeSort, smallDataSize)
-	testSortNonUnique(t, MergeSort, smallDataSize)
+	testSortRepeated(t, MergeSort, mediumDataSize)
+	testSortRepeatedCycle(t, MergeSort, mediumDataSize)
+	testSortRandom(t, MergeSort, mediumDataSize)
+	testSortDictWords(t, MergeSort, mediumDataSize)
+	testSortReversed(t, MergeSort, mediumDataSize)
+	testSortNonUnique(t, MergeSort, mediumDataSize)
 }
