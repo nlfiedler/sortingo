@@ -20,7 +20,7 @@ func TestBurstAppend(t *testing.T) {
 		"giraffe", "hippopotamus", "ibex", "monkey", "platapus"}
 	// insert strings
 	for i, c := range letters {
-		node.append(c, words[i])
+		node.add(c, words[i])
 	}
 	// retrieve strings and verify
 	for i, c := range letters {
@@ -28,10 +28,10 @@ func TestBurstAppend(t *testing.T) {
 		if _, is_node := elem.(burstNode); is_node {
 			t.Error("expected bucket, got node")
 		}
-		buck = elem.(bucket)
-		if len(buck) != 1 {
+		if node.size(c) != 1 {
 			t.Error("expected bucket to have one entry")
 		}
+		buck = elem.(bucket)
 		if buck[0] != words[i] {
 			t.Error("wrong string in bucket")
 		}
@@ -45,7 +45,7 @@ func TestBurstMultiple(t *testing.T) {
 	var buck bucket
 	words := [...]string{"fish", "food", "freeze"}
 	for _, w := range words {
-		node.append('f', w)
+		node.add('f', w)
 	}
 	elem := node.get('f')
 	if _, is_node := elem.(burstNode); is_node {
@@ -65,16 +65,16 @@ func TestBurstMultiple(t *testing.T) {
 // TestBurstNested creates a parent and child node and verifies that
 // they have the correct linkage.
 func TestBurstNested(t *testing.T) {
-	var parent burstNode
-	var child burstNode
+	parent := new(burstNode)
+	child := new(burstNode)
 	// set one entry to be another node
-	child.append('l', "oliphaunt")
+	child.add('l', "oliphaunt")
 	parent.set('o', child)
 	elem := parent.get('o')
-	if _, is_node := elem.(burstNode); !is_node {
+	if _, is_node := elem.(*burstNode); !is_node {
 		t.Error("expected node from set/get combo")
 	}
-	node := elem.(burstNode)
+	node := elem.(*burstNode)
 	buck := node.get('l').(bucket)
 	if buck[0] != "oliphaunt" {
 		t.Error("expected string not found")
@@ -91,7 +91,13 @@ func TestBurstNested(t *testing.T) {
 	}
 }
 
-func TestBurstExpansion(t *testing.T) {
-	// TODO: add many elements to null bucket and other buckets to test slice expansion
-	//       (generate a set of random strings, insert them and verify they are all accessible)
+func TestBurstSort(t *testing.T) {
+	testSortArguments(t, BurstSort)
+	// the repeated cases are the worst-case for burstsort, use small size
+	testSortRepeated(t, BurstSort, smallDataSize)
+	testSortRepeatedCycle(t, BurstSort, smallDataSize)
+	testSortRandom(t, BurstSort, mediumDataSize)
+	testSortDictWords(t, BurstSort, mediumDataSize)
+	testSortReversed(t, BurstSort, mediumDataSize)
+	testSortNonUnique(t, BurstSort, mediumDataSize)
 }

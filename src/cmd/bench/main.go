@@ -22,7 +22,7 @@ import (
 const runCount = 5
 
 // sorterNames are the name of the sort algorithms in the desired run order.
-var sorterNames = []string{"Merge"}
+var sorterNames = []string{"Merge"/*, "Burst"*/}
 
 // sorters maps sort algorithm names to implementing functions.
 var sorters = make(map[string]func([]string))
@@ -39,6 +39,7 @@ var dataGenerators = make(map[string]func(size int) []string)
 // init sets up the benchmark data structures.
 func init() {
 	sorters["Merge"] = sortingo.MergeSort
+	// sorters["Burst"] = sortingo.BurstSort
 
 	dataGenerators["Repeat"] = generateRepeated
 	dataGenerators["RepeatCycle"] = generateRepeatedCycle

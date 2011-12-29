@@ -18,12 +18,12 @@ const insertionThreshold = 16
 // nine for slices over a certain threshold). For very small slices,
 // a simple insertion sort is used.
 func MultikeyQuickSort(a []string) {
-	multikeyQuickSortDepth(a, 0)
+	MultikeyQuickSortDepth(a, 0)
 }
 
 // multikeyQuickSortDepth is like MultikeyQuickSort but it only considers
 // the characters in the strings starting from the given offset (depth).
-func multikeyQuickSortDepth(a []string, depth int) {
+func MultikeyQuickSortDepth(a []string, depth int) {
 	n := len(a)
 	if n < insertionThreshold {
 		insertionSortDepth(a, depth)
@@ -93,16 +93,16 @@ func multikeyQuickSortDepth(a []string, depth int) {
 	vecswap(a, lt, pn-r, r)
 	r = lt - le
 	if r > 1 {
-		multikeyQuickSortDepth(a[:r], depth)
+		MultikeyQuickSortDepth(a[:r], depth)
 	}
 	if !allzeros {
 		// Only descend if there was at least one string that was
 		// of equal or greater length than current depth.
-		multikeyQuickSortDepth(a[r:r+le+n-ge-1], depth+1)
+		MultikeyQuickSortDepth(a[r:r+le+n-ge-1], depth+1)
 	}
 	r = ge - gt
 	if r > 1 {
-		multikeyQuickSortDepth(a[n-r:], depth)
+		MultikeyQuickSortDepth(a[n-r:], depth)
 	}
 }
 
@@ -164,5 +164,5 @@ func med3(a []string, low, med, high, depth int) int {
 			return high
 		}
 	}
-	return -1 // impossible to reach here but compiler disagrees
+	panic("unreachable")
 }
