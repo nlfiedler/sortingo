@@ -47,7 +47,7 @@ func MultikeyQuickSortDepth(a []string, depth int) {
 	// Move the pivot to the start of the slice.
 	a[0], a[pm] = a[pm], a[0]
 
-	v := charAt(a[0], depth)
+	v := int(charAt(a[0], depth))
 	var allzeros bool = v == 0
 	le, lt := 1, 1
 	gt := n - 1
@@ -55,7 +55,7 @@ func MultikeyQuickSortDepth(a []string, depth int) {
 	for {
 		// Move elements smaller than pivot to the left.
 		for ; lt <= gt; lt++ {
-			r = charAt(a[lt], depth) - v
+			r = int(charAt(a[lt], depth)) - v
 			if r > 0 {
 				break
 			} else if r == 0 {
@@ -68,7 +68,7 @@ func MultikeyQuickSortDepth(a []string, depth int) {
 
 		// Move elements larger than pivot to the right.
 		for ; lt <= gt; gt-- {
-			r = charAt(a[gt], depth) - v
+			r = int(charAt(a[gt], depth)) - v
 			if r < 0 {
 				break
 			} else if r == 0 {
@@ -104,24 +104,6 @@ func MultikeyQuickSortDepth(a []string, depth int) {
 	if r > 1 {
 		MultikeyQuickSortDepth(a[n-r:], depth)
 	}
-}
-
-// charAt retrieves the character in string s at offset d. If d is
-// greater than or equal to the length of the string, return zero.
-// This simulates fixed-length strings that are zero-padded.
-func charAt(s string, d int) int {
-	if d < len(s) {
-		return int(s[d])
-	}
-	return 0
-}
-
-// iMin returns the minimum of x and y.
-func iMin(x, y int) int {
-	if x < y {
-		return x
-	}
-	return y
 }
 
 // Swap the elements between to areas within a slice.

@@ -151,29 +151,19 @@ func (n *burstNode) size(c uint8) int {
 	return n.counts[c]
 }
 
-// Retrieve the character in string s at offset d. If d is greater
-// than or equal to the length of the string, return zero. This
-// simulates fixed-length strings that are zero-padded.
-func burstCharAt(s string, d int) uint8 {
-        if d < len(s) {
-		return s[d]
-	}
-	return nullterm
-}
-
 // burstInsert adds a set of strings into the burst trie structure, in
 // preparation for in-order traversal (hence sorting).
 func burstInsert(root *burstNode, strings []string) {
-        for _, word := range strings {
+	for _, word := range strings {
 		// start at root each time
 		curr := root
 		// locate trie node in which to insert string
 		p := 0
-		c := burstCharAt(word, p)
+		c := charAt(word, p)
 		for curr.size(c) < 0 {
 			curr = curr.get(c).(*burstNode)
 			p++
-			c = burstCharAt(word, p)
+			c = charAt(word, p)
 		}
 
 		curr.add(c, word)
@@ -183,7 +173,7 @@ func burstInsert(root *burstNode, strings []string) {
 		// strings.
 
 		// is bucket size above the threshold?
-		for (curr.size(c) >= threshold && c != nullterm) {
+		for curr.size(c) >= threshold && c != nullterm {
 			// advance depth of character
 			p++
 			// allocate memory for new trie node
@@ -195,7 +185,7 @@ func burstInsert(root *burstNode, strings []string) {
 			for j := 0; j < size; j++ {
 				// access the next depth character
 				str := ptrs[j].(string)
-				cc = burstCharAt(str, p)
+				cc = charAt(str, p)
 				newt.add(cc, str)
 			}
 			// old pointer points to the new trie node
@@ -205,18 +195,18 @@ func burstInsert(root *burstNode, strings []string) {
 			// point to character used in previous string
 			c = cc
 		}
-        }
+	}
 }
 
 // burstTraverse traverses the trie structure, ordering the strings in
 // the array to conform to their lexicographically sorted order as
 // determined by the trie structure.
 func burstTraverse(node *burstNode, strings []string, pos, depth int) int {
-        for c := 0; c < alphabetSize; c++ {
+	for c := 0; c < alphabetSize; c++ {
 		idx := uint8(c)
 		count := node.size(idx)
 		if count < 0 {
-			pos = burstTraverse(node.get(idx).(*burstNode), strings, pos, depth + 1);
+			pos = burstTraverse(node.get(idx).(*burstNode), strings, pos, depth+1)
 		} else if count > 0 {
 			off := pos
 			if c == 0 {
@@ -246,30 +236,30 @@ func burstTraverse(node *burstNode, strings []string, pos, depth int) int {
 			} else {
 				// copy to final destination
 				bucket := node.get(idx).(bucket)
-				dst := strings[off:off+count]
+				dst := strings[off : off+count]
 				for i, v := range bucket {
 					// convert types while copying
 					dst[i] = v.(string)
 				}
 				// sort the tail string bucket
 				if count > 1 {
-					MultikeyQuickSortDepth(dst, depth + 1)
+					MultikeyQuickSortDepth(dst, depth+1)
 				}
 			}
 			pos += count
 		}
-        }
-        return pos
+	}
+	return pos
 }
 
 // BurstSort sorts the given set of strings using the original
 // (P-)burstsort algorithm.
 func BurstSort(strings []string) {
-        if (strings != nil && len(strings) > 1) {
+	if strings != nil && len(strings) > 1 {
 		root := new(burstNode)
 		burstInsert(root, strings)
 		burstTraverse(root, strings, 0, 0)
-        }
+	}
 }
 
 //

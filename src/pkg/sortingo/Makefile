@@ -10,6 +10,8 @@ TARG=sortingo
 GOFILES=\
 	binaryinsertionsort.go\
 	burstsort.go\
+	circularbuffer.go\
+	common.go\
 	dualpivotquicksort.go\
 	combsort.go\
 	gnomesort.go\
