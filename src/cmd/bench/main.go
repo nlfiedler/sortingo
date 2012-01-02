@@ -22,7 +22,7 @@ import (
 const runCount = 5
 
 // sorterNames are the name of the sort algorithms in the desired run order.
-var sorterNames = []string{"Merge"/*, "Burst"*/}
+var sorterNames = []string{"Merge" /*, "Burst"*/ }
 
 // sorters maps sort algorithm names to implementing functions.
 var sorters = make(map[string]func([]string))
