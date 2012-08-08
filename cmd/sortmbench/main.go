@@ -8,6 +8,7 @@ package main
 
 import (
 	"bytes"
+	"code.google.com/p/sortingo/sort"
 	"flag"
 	"fmt"
 	"math/rand"
@@ -16,7 +17,6 @@ import (
 	gosort "sort"
 	"strings"
 	"testing"
-	"code.google.com/p/sortingo/sort"
 )
 
 // Largest data size used in the micro benchmarks.
