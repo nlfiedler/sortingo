@@ -1,16 +1,18 @@
-Sorting for Go
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## Sorting for Go ##
 
-This is the source distribution of a sorting package for the Go
-programming language (http://golang.org), named sortingo, which contains
+This is the source distribution of a sorting package for the
+[Go](http://golang.org) programming language, named sortingo, which contains
 various sorting algorithm implementations.
 
-For more details, see http://code.google.com/p/burstsort4j/
+## Installation ##
 
-Sortingo is built using the `make` tool commonly available on platforms
-which support Go development. Without a target, make will build the
-package and auxillary commands, while the 'test' target will run the
-unit tests, and 'clean' will remove all build-generated files.
+Install [Git](http://git-scm.com) in order to fetch the other dependencies.
 
-Unless otherwise noted, the Sortingo source files are distributed under
-the BSD-style license found in the LICENSE file.
+Run the `go` tool like so:
+
+    go get -t github.com/nlfiedler/sortingo
+
+## License ##
+
+The sortingo project is licensed under the
+[New BSD](http://opensource.org/licenses/BSD-3-Clause) license.
