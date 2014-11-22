@@ -8,7 +8,7 @@ package main
 
 import (
 	"bytes"
-	"code.google.com/p/sortingo/sort"
+	"github.com/nlfiedler/sortingo/sort"
 	"flag"
 	"fmt"
 	"math/rand"
